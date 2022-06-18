@@ -13,15 +13,12 @@ while(True):
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray, scaleFactor=1.5, minNeighbors=5)
     for (x, y, w, h) in faces:
-        #print(x,y,w,h)
-        roi_gray = gray[y:y+h, x :x+w]
-        roi_color = frame[y:y+h, x:x+w]
-
-    
+   
         color = (255,0,0)   #!!BGR
-        stroke = 2
-        cv2.rectangle(frame, (x,y), (x+w, y+h), color, stroke)
-    
+        stroke = 3
+        cv2.rectangle(frame, (x-stroke,y-stroke), (x+w+stroke, y+h+stroke), color, stroke)
+        cv2.addText(frame, "Face found!",(x-stroke,y-stroke-5),"Times",30, (255,255,255))
+
     if frame is None:
         print('Reading capture failed. Does the Camera work? (frame == None)')
     cv2.namedWindow('frame', cv2.WINDOW_NORMAL)
